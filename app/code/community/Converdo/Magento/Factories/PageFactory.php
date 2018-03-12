@@ -79,8 +79,6 @@ class PageFactory extends BasePageFactory
                 return new HomePage();
             case 'account':
                 return new AccountPage();
-            case 'success':
-                return new SuccessPage();
         }
 
         switch (strtolower(Mage::app()->getFrontController()->getAction()->getFullActionName())) {
@@ -93,6 +91,11 @@ class PageFactory extends BasePageFactory
             case 'checkout_onestep_index':
             case 'onestepcheckout_index_index':
                 return new CheckoutPage();
+        }
+
+        switch (strtolower(Mage::app()->getFrontController()->getRequest()->getActionName())) {
+            case 'success':
+                return new SuccessPage();
         }
 
         if (cvd_config()->platform()->isProduct()) {
