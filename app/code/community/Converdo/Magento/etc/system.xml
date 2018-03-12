@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+
+<config>
+    <tabs>
+        <monitoring translate="label" module="analytics">
+            <label>Monitoring</label>
+            <sort_order>99999</sort_order>
+        </monitoring>
+    </tabs>
+    <sections>
+        <converdo translate="label" module="analytics">
+            <label>Conversion Monitor</label>
+            <tab>monitoring</tab>
+            <class>converdo-analytics-tab</class>
+            <frontend_type>text</frontend_type>
+            <sort_order>350</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <conversionmonitorsettings translate="label">
+                    <label>Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <comment><![CDATA[<b>ConversionMonitor Magento 2.1.7.33</b><br><a href="https://www.conversionmonitor.com" target="_blank" class="cm-comment-href">https://www.conversionmonitor.com</a><hr class="cm-hr">]]></comment>
+                    <fields>
+                        <active translate="label">
+                            <label>Enable</label>
+                            <comment>Only when enabled visitor data is tracked</comment>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </active>
+                    </fields>
+                </conversionmonitorsettings>
+                <conversionmonitortokens translate="label">
+                    <label>API Tokens</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <website translate="label">
+                            <label>Website Token</label>
+                            <comment>Find the website token in the dashboard</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </website>
+
+                        <encryption translate="label">
+                            <label>Encryption Token</label>
+                            <comment>Find the encryption token in the dashboard</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </encryption>
+
+                        <user translate="label">
+                            <label>User Token</label>
+                            <comment>Find the user token in the dashboard</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </user>
+
+                    </fields>
+                </conversionmonitortokens>
+            </groups>
+        </converdo>
+    </sections>
+</config>

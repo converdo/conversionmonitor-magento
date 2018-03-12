@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+
+<layout version="0.1.0">
+    <default>
+        <reference name="before_body_end">
+            <block type="analytics/tracker" name="converdo_conversionmonitor" as="converdo_conversionmonitor" template="conversionmonitor/collection.phtml" />
+        </reference>
+    </default>
+</layout>

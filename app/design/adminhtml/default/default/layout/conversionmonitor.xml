@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<layout>
+    <default>
+        <reference name="head">
+            <action method="addCss">
+                <name>conversionmonitor/css/system_config_edit.css</name>
+            </action>
+        </reference>
+    </default>
+</layout>
+
