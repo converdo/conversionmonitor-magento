@@ -35,7 +35,8 @@ class CartFactory extends BaseCartFactory
                     ->setProducts($this->handleProducts())
                     ->setSubtotal($this->cart->getSubtotal())
                     ->setTotal($this->cart->getGrandTotal())
-                    ->setTax($this->cart->getCustomerTaxvat())
+                    ->setShipping($this->cart->getShippingAddress()->getData('shipping_amount'))
+                    ->setTax($this->handleTax())
                     ->setDiscount($this->handleDiscount())
                     ->setCoupons($this->handleCoupons());
     }
@@ -54,6 +55,16 @@ class CartFactory extends BaseCartFactory
         }
 
         return $products;
+    }
+
+    /**
+     * Get the tax applied to the cart.
+     *
+     * @return float
+     */
+    protected function handleTax()
+    {
+        return $this->cart->getShippingAddress()->getData('tax_amount') ?: $this->cart->getCustomerTaxvat();
     }
 
     /**

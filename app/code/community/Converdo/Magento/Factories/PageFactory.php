@@ -24,35 +24,7 @@ class PageFactory extends BasePageFactory
     {
         return $this->model
                     ->setType($this->handlePageType())
-                    ->setName($this->handleTitle())
-                    ->setUrl($this->handleRequestUrl())
                     ->setLanguageCode($this->handleLocale());
-    }
-
-    /**
-     * Build the requested page URL, ignore query parameters.
-     *
-     * @return string
-     */
-    protected function handleRequestUrl()
-    {
-        $path = current(explode('?', $_SERVER['REQUEST_URI'], 2));
-
-        return "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}{$path}";
-    }
-
-    /**
-     * Get the page title as displayed in the title tag.
-     *
-     * @return string
-     */
-    protected function handleTitle()
-    {
-        if (Mage::app()->getLayout() && Mage::app()->getLayout()->getBlock('head')) {
-            return Mage::app()->getLayout()->getBlock('head')->getData('title');
-        }
-
-        return Mage::app()->getStore()->getFrontendName();
     }
 
     /**
@@ -79,6 +51,8 @@ class PageFactory extends BasePageFactory
                 return new HomePage();
             case 'account':
                 return new AccountPage();
+            case 'success':
+                return new SuccessPage();
         }
 
         switch (strtolower(Mage::app()->getFrontController()->getAction()->getFullActionName())) {
@@ -91,11 +65,6 @@ class PageFactory extends BasePageFactory
             case 'checkout_onestep_index':
             case 'onestepcheckout_index_index':
                 return new CheckoutPage();
-        }
-
-        switch (strtolower(Mage::app()->getFrontController()->getRequest()->getActionName())) {
-            case 'success':
-                return new SuccessPage();
         }
 
         if (cvd_config()->platform()->isProduct()) {
