@@ -59,13 +59,13 @@ class ProductFactory extends BaseProductFactory
         return $this->model
                     ->setName($this->getPrioritizedInstance()->getName())
                     ->setSku($this->getPrioritizedInstance()->getSku())
-                    ->setCost($this->handleAttributeSafely('cost'))
-                    ->setPrice((float) $this->product->getFinalPrice())
+                    ->setPrice($this->product->getFinalPrice())
                     ->setBrand($this->handleAttributeSafely('manufacturer'))
-                    ->setImage((string) $this->handleImageUrlString())
+                    ->setAttributes($this->handleAttributes())
+                    ->setCost($this->handleAttributeSafely('cost'))
+                    ->setImage($this->handleImageUrlString())
                     ->setType($this->handleProductType())
                     ->setCategories($this->handleCategories())
-                    ->setAttributes($this->handleAttributes())
                     ->setQuantity($this->quantity);
     }
 
@@ -112,7 +112,7 @@ class ProductFactory extends BaseProductFactory
      */
     protected function handleImageUrlString()
     {
-        return Mage::helper('catalog/image')->init($this->product, 'thumbnail');
+        return (string) Mage::helper('catalog/image')->init($this->product, 'thumbnail');
     }
 
     /**

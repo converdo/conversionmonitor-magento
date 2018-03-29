@@ -24,7 +24,8 @@ class PageFactory extends BasePageFactory
     {
         return $this->model
                     ->setType($this->handlePageType())
-                    ->setLanguageCode($this->handleLocale());
+                    ->setLanguageCode($this->handleLocale())
+                    ->setHttpStatusCode($this->handleStatusCode());
     }
 
     /**
@@ -47,12 +48,14 @@ class PageFactory extends BasePageFactory
         switch (strtolower(Mage::app()->getFrontController()->getRequest()->getControllerName())) {
             case 'cart':
                 return new CartPage();
-            case 'index':
-                return new HomePage();
             case 'account':
                 return new AccountPage();
             case 'success':
                 return new SuccessPage();
+        }
+
+        if (Mage::getSingleton('cms/page')->getIdentifier() === 'home') {
+            return new HomePage();
         }
 
         switch (strtolower(Mage::app()->getFrontController()->getAction()->getFullActionName())) {
@@ -76,5 +79,19 @@ class PageFactory extends BasePageFactory
         }
 
         return new SeoPage();
+    }
+
+    /**
+     * Get the http response code.
+     *
+     * @return int
+     */
+    protected function handleStatusCode()
+    {
+        if (Mage::getSingleton('cms/page')->getIdentifier() === 'no-route') {
+            return 404;
+        }
+
+        return http_response_code();
     }
 }

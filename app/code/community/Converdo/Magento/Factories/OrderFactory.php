@@ -7,6 +7,8 @@ use Converdo\ConversionMonitor\Core\Enumerables\Orders\CompletedType;
 use Converdo\ConversionMonitor\Core\Enumerables\Orders\PendingType;
 use Converdo\ConversionMonitor\Core\Enumerables\OrderType;
 use Converdo\ConversionMonitor\Core\Factories\BaseOrderFactory;
+use Converdo\ConversionMonitor\Core\Trackables\TrackableAddress;
+use Converdo\ConversionMonitor\Core\Trackables\TrackableCustomer;
 use Mage_Sales_Model_Order;
 
 class OrderFactory extends BaseOrderFactory
@@ -37,11 +39,11 @@ class OrderFactory extends BaseOrderFactory
                     ->setIdentifier($this->order->getRealOrderId())
                     ->setSubtotal($this->order->getSubtotal())
                     ->setTotal($this->order->getGrandTotal())
-                    ->setTax($this->order->getBaseTaxAmount())
                     ->setShipping($this->order->getBaseShippingAmount())
                     ->setDiscount($this->order->getBaseDiscountAmount())
+                    ->setTax($this->order->getBaseTaxAmount())
                     ->setGateway($this->handlePaymentGateway())
-                    ->setCustomerIp($this->order->getRemoteIp())
+                    ->setCustomer($this->handleCustomer())
                     ->setType($this->handleOrderType())
                     ->setProducts($this->handleProducts());
     }
@@ -79,7 +81,9 @@ class OrderFactory extends BaseOrderFactory
         $products = [];
 
         foreach ($this->order->getAllVisibleItems() as $product) {
-            $products[] = cvd_config()->platform()->getProductFactory($product->getProduct())->call();
+            $products[] = cvd_config()->platform()->getProductFactory(
+                $product->getProduct(), (int) $product->getQtyOrdered()
+            )->call();
         }
 
         return $products;
@@ -93,9 +97,38 @@ class OrderFactory extends BaseOrderFactory
     protected function handlePaymentGateway()
     {
         if ($this->order->getPayment() && $this->order->getPayment()->getMethodInstance()) {
-            return $this->order->getPayment()->getMethodInstance()->getTitle();
+            return $this->order->getPayment()->getMethodInstance()->getCode();
         }
 
         return null;
+    }
+
+    /**
+     * Build the customer trackable instance.
+     *
+     * @return TrackableCustomer
+     */
+    protected function handleCustomer()
+    {
+        $billing = new TrackableAddress();
+        $billing->setAddress($this->order->getBillingAddress()->getStreet1());
+        $billing->setPostal($this->order->getBillingAddress()->getPostcode());
+        $billing->setCity($this->order->getBillingAddress()->getCity());
+        $billing->setCountry($this->order->getBillingAddress()->getCountryModel()->getName());
+
+        $shipping = new TrackableAddress();
+        $shipping->setAddress($this->order->getShippingAddress()->getStreet1());
+        $shipping->setPostal($this->order->getShippingAddress()->getPostcode());
+        $shipping->setCity($this->order->getShippingAddress()->getCity());
+        $shipping->setCountry($this->order->getShippingAddress()->getCountryModel()->getName());
+
+        $customer = new TrackableCustomer();
+        $customer->setName($this->order->getCustomerName());
+        $customer->setEmail($this->order->getCustomerEmail());
+        $customer->setTelephone($this->order->getShippingAddress()->getTelephone());
+        $customer->setBillingAddress($billing);
+        $customer->setShippingAddress($shipping);
+
+        return $customer;
     }
 }

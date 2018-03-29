@@ -57,11 +57,11 @@ class CouponFactory extends BaseCouponFactory
     {
         return $this->model
                     ->setCoupon($this->coupon->getCode())
-                    ->setType($this->handleCouponType())
                     ->setAmount($this->handleAmount())
                     ->setMinimumCartTotal($this->findConditionValue('base_subtotal', '>'))
                     ->setMaximumCartTotal($this->findConditionValue('base_subtotal', '<'))
-                    ->setFreeShipping($this->rule->getSimpleFreeShipping());
+                    ->setFreeShipping($this->rule->getSimpleFreeShipping())
+                    ->setType($this->handleCouponType());
     }
 
     /**

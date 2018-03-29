@@ -48,7 +48,7 @@ class Configuration implements PlatformConfigurable
      */
     public function website($store = null)
     {
-        return (string) Mage::getStoreConfig('converdo/conversionmonitortokens/website', $store);
+        return (string) Mage::getStoreConfig('converdo/conversionmonitorapi/website', $store);
     }
 
     /**
@@ -56,7 +56,7 @@ class Configuration implements PlatformConfigurable
      */
     public function encryption($store = null)
     {
-        return (string) Mage::getStoreConfig('converdo/conversionmonitortokens/encryption', $store);
+        return (string) Mage::getStoreConfig('converdo/conversionmonitorapi/encryption', $store);
     }
 
     /**
@@ -64,7 +64,7 @@ class Configuration implements PlatformConfigurable
      */
     public function user($store = null)
     {
-        return (string) Mage::getStoreConfig('converdo/conversionmonitortokens/user', $store);
+        return (string) Mage::getStoreConfig('converdo/conversionmonitorapi/user', $store);
     }
 
     /**
@@ -127,9 +127,9 @@ class Configuration implements PlatformConfigurable
     /**
      * @inheritdoc
      */
-    public function getProductFactory($product)
+    public function getProductFactory($product, $quantity = null)
     {
-        return new ProductFactory($product);
+        return new ProductFactory($product, $quantity);
     }
 
     /**

@@ -40,7 +40,7 @@
                         </active>
                     </fields>
                 </conversionmonitorsettings>
-                <conversionmonitortokens translate="label">
+                <conversionmonitorapi translate="label">
                     <label>API Tokens</label>
                     <frontend_type>text</frontend_type>
                     <sort_order>0</sort_order>
@@ -80,7 +80,7 @@
                         </user>
 
                     </fields>
-                </conversionmonitortokens>
+                </conversionmonitorapi>
             </groups>
         </converdo>
     </sections>

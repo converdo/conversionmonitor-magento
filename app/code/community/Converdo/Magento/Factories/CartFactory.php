@@ -33,11 +33,11 @@ class CartFactory extends BaseCartFactory
     {
         return $this->model
                     ->setProducts($this->handleProducts())
-                    ->setSubtotal($this->cart->getSubtotal())
                     ->setTotal($this->cart->getGrandTotal())
+                    ->setSubtotal($this->cart->getSubtotal())
                     ->setShipping($this->cart->getShippingAddress()->getData('shipping_amount'))
-                    ->setTax($this->handleTax())
                     ->setDiscount($this->handleDiscount())
+                    ->setTax($this->handleTax())
                     ->setCoupons($this->handleCoupons());
     }
 
