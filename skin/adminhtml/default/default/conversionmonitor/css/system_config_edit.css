@@ -1,7 +1,0 @@
-#system_config_tabs .converdo-analytics-tab { margin: 4px 0 -12px 0; background:transparent url(../images/favicon.png) 18px 3px no-repeat !important; display:block; height:33px; }
-#system_config_tabs .converdo-analytics-tab:hover { background-color:#d8e6e6 !important; border-right:1px solid #8aa5a6; }
-#system_config_tabs .converdo-analytics-tab.active { background-color:#fff !important; border-right:none !important; }
-#system_config_tabs .converdo-analytics-tab span { padding:7px 0 1px 47px; display:block; height:25px; }
-#system_config_tabs .converdo-analytics-tab.active span { background:none; }
-.cm-hr { height: 1px; border: none; border-bottom: 1px solid #d7d7d7; margin: 6px 0 12px 0; }
-.cm-comment-href { margin-left:0 !important; }

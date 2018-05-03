@@ -3,6 +3,7 @@
 namespace Converdo\ConversionMonitor\Magento\Factories;
 
 use Converdo\ConversionMonitor\Core\Factories\BaseSearchFactory;
+use Mage;
 use Mage_CatalogSearch_Model_Query;
 
 class SearchFactory extends BaseSearchFactory
@@ -31,6 +32,7 @@ class SearchFactory extends BaseSearchFactory
     {
         return $this->model
                     ->setTerm($this->query->getQueryText())
-                    ->setResults($this->query->getNumResults());
+                    ->setTotalResults($this->query->getNumResults())
+                    ->setPageNumber(Mage::getBlockSingleton('page/html_pager')->getCurrentPage());
     }
 }

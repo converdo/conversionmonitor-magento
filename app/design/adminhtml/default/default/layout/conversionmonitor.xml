@@ -3,8 +3,13 @@
 <layout>
     <default>
         <reference name="head">
-            <action method="addCss">
-                <name>conversionmonitor/css/system_config_edit.css</name>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>conversionmonitor/css/conversionmonitor.css</name>
+            </action>
+            <action method="addItem">
+                <type>skin_js</type>
+                <name>conversionmonitor/javascript/conversionmonitor.js</name>
             </action>
         </reference>
     </default>

@@ -8,6 +8,7 @@ return [
     '/Magento/Factories/CouponFactory',
     '/Magento/Factories/OrderFactory',
     '/Magento/Factories/PageFactory',
+    '/Magento/Factories/PaymentGatewayFactory',
     '/Magento/Factories/ProductFactory',
     '/Magento/Factories/SearchFactory',
 

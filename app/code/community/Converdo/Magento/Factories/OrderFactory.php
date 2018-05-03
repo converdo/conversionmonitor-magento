@@ -36,7 +36,8 @@ class OrderFactory extends BaseOrderFactory
     public function build()
     {
         return $this->model
-                    ->setIdentifier($this->order->getRealOrderId())
+                    ->setIdentifier($this->order->getIncrementId())
+                    ->setName($this->order->getRealOrderId())
                     ->setSubtotal($this->order->getSubtotal())
                     ->setTotal($this->order->getGrandTotal())
                     ->setShipping($this->order->getBaseShippingAmount())

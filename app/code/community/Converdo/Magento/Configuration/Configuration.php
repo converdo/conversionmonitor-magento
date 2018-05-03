@@ -9,6 +9,7 @@ use Converdo\ConversionMonitor\Magento\Factories\CategoryFactory;
 use Converdo\ConversionMonitor\Magento\Factories\CouponFactory;
 use Converdo\ConversionMonitor\Magento\Factories\OrderFactory;
 use Converdo\ConversionMonitor\Magento\Factories\PageFactory;
+use Converdo\ConversionMonitor\Magento\Factories\PaymentGatewayFactory;
 use Converdo\ConversionMonitor\Magento\Factories\ProductFactory;
 use Converdo\ConversionMonitor\Magento\Factories\SearchFactory;
 use Mage;
@@ -27,11 +28,10 @@ class Configuration implements PlatformConfigurable
      */
     public function enabled($store = null)
     {
-        return $this->user($store)
-            #&& $this->website($store)
-            #&& $this->encryption($store)
-            #&& $this->activated($store)
-            #&& WC_ConversionMonitor::enabled()
+        return $this->location($store)
+            && $this->website($store)
+            && $this->encryption($store)
+            && $this->activated($store)
             && $this->activated;
     }
 
@@ -62,9 +62,9 @@ class Configuration implements PlatformConfigurable
     /**
      * @inheritDoc
      */
-    public function user($store = null)
+    public function location($store = null)
     {
-        return (string) Mage::getStoreConfig('converdo/conversionmonitorapi/user', $store);
+        return (string) Mage::getStoreConfig('converdo/conversionmonitorapi/cluster', $store);
     }
 
     /**
@@ -255,6 +255,22 @@ class Configuration implements PlatformConfigurable
     }
 
     /**
+     * @inheritdoc
+     */
+    public function paymentGateway($gateway)
+    {
+       return $this->getPaymentGatewayFactory($gateway)->call();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getPaymentGatewayFactory($gateway)
+    {
+        return new PaymentGatewayFactory($gateway);
+    }
+
+    /**
      * @inheritDoc
      */
     public function directory()
@@ -276,5 +292,13 @@ class Configuration implements PlatformConfigurable
     public function pluginPath($path = null)
     {
         return trim(Mage::getBaseDir() . "/app/code/community/Converdo/{$path}");
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function httpPath($path = null)
+    {
+        return trim(Mage::getBaseUrl(\Mage_Core_Model_Store::URL_TYPE_SKIN) . "adminhtml/default/default/conversionmonitor/{$path}");
     }
 }

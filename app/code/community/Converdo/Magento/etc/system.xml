@@ -11,7 +11,7 @@
         <converdo translate="label" module="analytics">
             <label>Conversion Monitor</label>
             <tab>monitoring</tab>
-            <class>converdo-analytics-tab</class>
+            <class>conversionmonitor-tab</class>
             <frontend_type>text</frontend_type>
             <sort_order>350</sort_order>
             <show_in_default>1</show_in_default>
@@ -69,15 +69,16 @@
                             <show_in_store>1</show_in_store>
                         </encryption>
 
-                        <user translate="label">
-                            <label>User Token</label>
-                            <comment>Find the user token in the dashboard</comment>
-                            <frontend_type>text</frontend_type>
+                        <cluster translate="label">
+                            <label>Location</label>
+                            <comment>The server location</comment>
+                            <source_model>Converdo_Magento_Helpers_LocationList</source_model>
+                            <frontend_type>select</frontend_type>
                             <sort_order>40</sort_order>
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                        </user>
+                        </cluster>
 
                     </fields>
                 </conversionmonitorapi>

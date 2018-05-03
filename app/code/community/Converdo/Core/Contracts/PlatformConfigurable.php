@@ -7,6 +7,7 @@ use Converdo\ConversionMonitor\Core\Factories\BaseCategoryFactory;
 use Converdo\ConversionMonitor\Core\Factories\BaseCouponFactory;
 use Converdo\ConversionMonitor\Core\Factories\BaseOrderFactory;
 use Converdo\ConversionMonitor\Core\Factories\BasePageFactory;
+use Converdo\ConversionMonitor\Core\Factories\BasePaymentGatewayFactory;
 use Converdo\ConversionMonitor\Core\Factories\BaseProductFactory;
 use Converdo\ConversionMonitor\Core\Factories\BaseVisitorFactory;
 
@@ -27,7 +28,7 @@ interface PlatformConfigurable
     public function disabled();
 
     /**
-     * The website token
+     * The website token.
      *
      * @param  string|null      $store
      * @return string|null
@@ -35,7 +36,7 @@ interface PlatformConfigurable
     public function website($store = null);
 
     /**
-     * The encryption token
+     * The encryption token.
      *
      * @param  string|null      $store
      * @return string|null
@@ -43,12 +44,12 @@ interface PlatformConfigurable
     public function encryption($store = null);
 
     /**
-     * The user token
+     * The server location.
      *
      * @param  string|null      $store
      * @return string|null
      */
-    public function user($store = null);
+    public function location($store = null);
 
     /**
      * Determine if the plugin is activated.
@@ -203,6 +204,22 @@ interface PlatformConfigurable
     public function getOrderFactory($order);
 
     /**
+     * Get a payment gateway object.
+     *
+     * @param  mixed                $gateway
+     * @return mixed
+     */
+    public function paymentGateway($gateway);
+
+    /**
+     * Get the payment gateway factory instance.
+     *
+     * @param  mixed                $gateway
+     * @return BasePaymentGatewayFactory
+     */
+    public function getPaymentGatewayFactory($gateway);
+
+    /**
      * Determine if there is a cart with products.
      *
      * @return bool
@@ -245,4 +262,12 @@ interface PlatformConfigurable
      * @return string
      */
     public function pluginPath($path = null);
+
+    /**
+     * Get the absolute url to the plugin root directory.
+     *
+     * @param  string|null      $path
+     * @return string
+     */
+    public function httpPath($path = null);
 }
