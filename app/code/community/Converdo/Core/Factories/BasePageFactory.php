@@ -29,7 +29,7 @@ class BasePageFactory extends AbstractFactory
     public function prepare()
     {
         return $this->model
-            ->setSourceUrl(isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : null)
+            ->setSourceUrl($this->hostname())
             ->setUrl($this->handleRequestUrl())
             ->setHttpStatusCode(http_response_code());
     }
