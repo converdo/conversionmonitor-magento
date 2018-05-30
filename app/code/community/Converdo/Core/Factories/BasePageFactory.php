@@ -29,9 +29,9 @@ class BasePageFactory extends AbstractFactory
     public function prepare()
     {
         return $this->model
-                    ->setSourceUrl(isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : null)
-                    ->setUrl($this->handleRequestUrl())
-                    ->setHttpStatusCode(http_response_code());
+            ->setSourceUrl(isset($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : null)
+            ->setUrl($this->handleRequestUrl())
+            ->setHttpStatusCode(http_response_code());
     }
 
     /**
@@ -41,8 +41,37 @@ class BasePageFactory extends AbstractFactory
      */
     protected function handleRequestUrl()
     {
-        $path = current(explode('?', $_SERVER['REQUEST_URI'], 2));
+        if (! $this->hostname()) {
+            return null;
+        }
 
-        return "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['HTTP_HOST']}{$path}";
+        $path = current(explode('?', (! empty($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '/'), 2));
+
+        $scheme = $this->isHttpsRequest() ? 'https' : 'http';
+
+        return "{$scheme}://{$this->hostname()}{$path}";
+    }
+
+    /**
+     * Get the hostname of the server.
+     *
+     * @return string|null
+     */
+    protected function hostname()
+    {
+        return (! empty($_SERVER['SERVER_NAME']) ? $_SERVER['SERVER_NAME'] : null)
+            ?: (! empty($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : null);
+    }
+
+    /**
+     * Determine if the request is over https.
+     *
+     * @return bool
+     */
+    protected function isHttpsRequest()
+    {
+        return (! empty($_SERVER['REQUEST_SCHEME']) && $_SERVER['REQUEST_SCHEME'] === 'https')
+            || (! empty($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] === '443')
+            || (! empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on');
     }
 }
