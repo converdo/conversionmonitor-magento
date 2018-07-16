@@ -95,12 +95,12 @@ class ProductFactory extends BaseProductFactory
     /**
      * Get the attribute text safely.
      *
-     * @param  string           $variable
+     * @param  string           $attribute
      * @return string
      */
-    protected function handleAttributeSafely($variable)
+    protected function handleAttributeSafely($attribute)
     {
-        $manufacturer = $this->product->getAttributeText($variable);
+        $manufacturer = $this->product->getAttributeText($attribute);
 
         return $manufacturer ?: null;
     }
@@ -112,6 +112,10 @@ class ProductFactory extends BaseProductFactory
      */
     protected function handleImageUrlString()
     {
+        if ($this->product->getThumbnail() === 'no_selection') {
+            return null;
+        }
+
         return (string) Mage::helper('catalog/image')->init($this->product, 'thumbnail');
     }
 
