@@ -301,4 +301,12 @@ class Configuration implements PlatformConfigurable
     {
         return trim(Mage::getBaseUrl(\Mage_Core_Model_Store::URL_TYPE_SKIN) . "adminhtml/default/default/conversionmonitor/{$path}");
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function logPath($path = null)
+    {
+        return Mage::getBaseDir() . "/var/log/{$path}";
+    }
 }

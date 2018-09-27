@@ -100,9 +100,13 @@ class ProductFactory extends BaseProductFactory
      */
     protected function handleAttributeSafely($attribute)
     {
-        $manufacturer = $this->product->getAttributeText($attribute);
+        $attribute = $this->product->getResource()->getAttribute($attribute);
 
-        return $manufacturer ?: null;
+        if (! $attribute) {
+            return null;
+        }
+
+        return $attribute->getSource()->getOptionText($this->product->getData($attribute));
     }
 
     /**
@@ -112,7 +116,7 @@ class ProductFactory extends BaseProductFactory
      */
     protected function handleImageUrlString()
     {
-        if ($this->product->getThumbnail() === 'no_selection') {
+        if (! $this->product->getThumbnail() || $this->product->getThumbnail() === 'no_selection') {
             return null;
         }
 

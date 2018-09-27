@@ -270,4 +270,12 @@ interface PlatformConfigurable
      * @return string
      */
     public function httpPath($path = null);
+
+    /**
+     * Get the absolute path to the log directory.
+     *
+     * @param  string|null      $path
+     * @return string
+     */
+    public function logPath($path = null);
 }

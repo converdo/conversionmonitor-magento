@@ -173,11 +173,11 @@ class LogWriter implements Log
 
         $message = "{$date} {$level}: {$text}". PHP_EOL;
 
-        if (! is_dir(cvd_config()->platform()->pluginPath('/logs'))) {
-            mkdir(cvd_config()->platform()->pluginPath('/logs'), 644, true);
+        if (! is_dir(cvd_config()->platform()->logPath())) {
+            mkdir(cvd_config()->platform()->logPath(), 644, true);
         }
 
-        file_put_contents(cvd_config()->platform()->pluginPath("/logs/{$this->output()}"), $message, FILE_APPEND);
+        file_put_contents(cvd_config()->platform()->logPath($this->output()), $message, FILE_APPEND);
     }
 
     /**
